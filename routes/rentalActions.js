@@ -4,25 +4,33 @@ async function fetchRentals() {
         const response = await fetch('/api/rentals');
         const rentals = await response.json();
         const tbody = document.getElementById('rentalBody');
+        const noDataMessage = document.getElementById('noDataMessage');
         tbody.innerHTML = '';
         selectedRooms = []; // Reset danh sách chọn
         document.getElementById('deleteBtn').disabled = true;
 
-        rentals.forEach((rental, index) => {
-            const row = `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${rental.roomId}</td>
-                    <td>${rental.tenantName}</td>
-                    <td>${rental.phoneNumber}</td>
-                    <td>${rental.startDate}</td>
-                    <td>${rental.paymentMethod}</td>
-                    <td>${rental.note || ''}</td>
-                    <td><input type="checkbox" class="row-checkbox" data-room-id="${rental.roomId}" onchange="updateSelectedRooms()"></td>
-                </tr>
-            `;
-            tbody.innerHTML += row;
-        });
+        if (rentals.length === 0) {
+            // Nếu không có dữ liệu, hiển thị thông điệp
+            noDataMessage.style.display = 'block';
+        } else {
+            // Nếu có dữ liệu, ẩn thông điệp và hiển thị bảng
+            noDataMessage.style.display = 'none';
+            rentals.forEach((rental, index) => {
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${rental.roomId}</td>
+                        <td>${rental.tenantName}</td>
+                        <td>${rental.phoneNumber}</td>
+                        <td>${rental.startDate}</td>
+                        <td>${rental.paymentMethod}</td>
+                        <td>${rental.note || ''}</td>
+                        <td><input type="checkbox" class="row-checkbox" data-room-id="${rental.roomId}" onchange="updateSelectedRooms()"></td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
     } catch (error) {
         console.error('Error fetching rentals:', error);
     }

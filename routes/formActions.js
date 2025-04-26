@@ -4,6 +4,11 @@ async function openCreateForm() {
     const nextRoomId = await getNextRoomId();
     document.getElementById('roomId').value = nextRoomId;
 
+    // Đặt ngày tối thiểu là ngày hiện tại
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0]; // Định dạng yyyy-mm-dd
+    document.getElementById('startDate').setAttribute('min', todayStr);
+
     const createModal = new bootstrap.Modal(document.getElementById('createModal'));
     createModal.show();
     clearErrors();
@@ -54,10 +59,22 @@ function validateForm() {
     }
 
     // Validate startDate
-    const startDate = document.getElementById('startDate').value;
+    const startDateInput = document.getElementById('startDate');
+    const startDate = startDateInput.value;
     if (!startDate) {
         document.getElementById('startDateError').style.display = 'block';
+        document.getElementById('startDateError').textContent = 'Vui lòng chọn ngày';
         isValid = false;
+    } else {
+        // Kiểm tra ngày có nhỏ hơn ngày hiện tại không
+        const selectedDate = new Date(startDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00 để so sánh ngày
+        if (selectedDate < today) {
+            document.getElementById('startDateError').style.display = 'block';
+            document.getElementById('startDateError').textContent = 'Không được chọn ngày đã qua';
+            isValid = false;
+        }
     }
 
     // Validate paymentMethod
