@@ -1,0 +1,1 @@
+let selectedRooms = []; // Lưu danh sách roomId được chọn

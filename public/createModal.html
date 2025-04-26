@@ -1,0 +1,49 @@
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Tạo mới phòng trọ</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="closeCreateForm()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="roomId" class="form-label">Mã phòng trọ</label>
+                    <input type="text" class="form-control" id="roomId" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="tenantName" class="form-label">Tên người thuê trọ</label>
+                    <input type="text" class="form-control" id="tenantName" placeholder="Nhập tên người thuê">
+                    <div class="text-danger mt-1" id="tenantNameError" style="display: none;">Tên phải từ 5-50 ký tự, không chứa ký tự đặc biệt</div>
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Số điện thoại</label>
+                    <input type="text" class="form-control" id="phoneNumber" placeholder="Nhập số điện thoại">
+                    <div class="text-danger mt-1" id="phoneNumberError" style="display: none;">Số điện thoại phải là 10 chữ số</div>
+                </div>
+                <div class="mb-3">
+                    <label for="startDate" class="form-label">Ngày bắt đầu thuê trọ</label>
+                    <input type="date" class="form-control" id="startDate">
+                    <div class="text-danger mt-1" id="startDateError" style="display: none;">Vui lòng chọn ngày</div>
+                </div>
+                <div class="mb-3">
+                    <label for="paymentMethod" class="form-label">Hình thức thanh toán</label>
+                    <select class="form-select" id="paymentMethod">
+                        <option value="">Chọn hình thức</option>
+                        <option value="Theo tháng">Theo tháng</option>
+                        <option value="Theo quý">Theo quý</option>
+                        <option value="Theo năm">Theo năm</option>
+                    </select>
+                    <div class="text-danger mt-1" id="paymentMethodError" style="display: none;">Vui lòng chọn hình thức thanh toán</div>
+                </div>
+                <div class="mb-3">
+                    <label for="note" class="form-label">Ghi chú</label>
+                    <textarea class="form-control" id="note" rows="4" placeholder="Nhập ghi chú (nếu có)"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="closeCreateForm()">Hủy</button>
+                <button type="button" class="btn btn-success" onclick="submitForm()">Tạo mới</button>
+            </div>
+        </div>
+    </div>
+</div>
